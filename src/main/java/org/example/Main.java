@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        crearMenu();
+        Restaurante miResto = crearRestaurante();
 
         System.out.println("Ingrese la accion a realizar: \n" +
                 "1-Vender/Cobrar un producto\n" +
@@ -27,7 +27,7 @@ public class Main {
 
     }
 
-    public static void crearMenu() {
+    public static Restaurante crearRestaurante() {
 
     }
 }
