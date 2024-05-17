@@ -13,8 +13,8 @@ public class Main {
                 "2-Ingreso de mercadería\n" +
                 "3-Pago a proveedor\n" +
                 "4-Consulta de ventas\n" +
-                "        a- Diaria\n" +
-                "        b- Mensual\n" +
+                "      a- Diaria\n" +
+                "      b- Mensual\n" +
                 "5-Balance (mostrar ganancias y pérdidas)\n" +
                 "6-Solicitar una comanda a la cocina.\n" +
                 "7-Pagar cuenta\n" +
