@@ -8,6 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        crearMenu();
+
         System.out.println("Ingrese la accion a realizar: \n" +
                 "1-Vender/Cobrar un producto\n" +
                 "2-Ingreso de mercadería\n" +
@@ -22,6 +24,10 @@ public class Main {
         );
 
         int accion = Integer.parseInt(sc.next());
+
+    }
+
+    public static void crearMenu() {
 
     }
 }
