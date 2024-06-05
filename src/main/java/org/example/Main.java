@@ -23,14 +23,14 @@ public class Main {
 
             // Crear una tabla
             Statement statement = connection.createStatement();
-            statement.execute("CREATE TABLE example(id INT PRIMARY KEY, name VARCHAR(255))");
+            //statement.execute("CREATE TABLE producto (id INT PRIMARY KEY, name VARCHAR(255))");
 
             // Insertar datos
-            statement.execute("INSERT INTO example(id, name) VALUES(1, 'CocaCola')");
-            statement.execute("INSERT INTO example(id, name) VALUES(2, 'Pepsi')");
+            //statement.execute("INSERT INTO producto(id, name) VALUES(1, 'CocaCola')");
+            //statement.execute("INSERT INTO producto(id, name) VALUES(2, 'Pepsi')");
 
             // Consultar datos
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM example");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM producto");
             while (resultSet.next()) {
                 System.out.println("ID: " + resultSet.getInt("id") + ", Name: " + resultSet.getString("name"));
             }
@@ -124,7 +124,18 @@ public class Main {
             a enviar a la mercaderia del minimarket */
             Producto producto = new Producto(id, nombre, precio, cantidad);
             mercaderiaAAgregar.add(producto);
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+                Statement statement = connection.createStatement();
 
+                statement.execute("INSERT INTO producto(id, nombre, precio, cantidad) VALUES('" + id + "','" + nombre + "','" + precio + "','" + cantidad + "')");
+                //statement.execute("INSERT INTO producto(id, nombre, precio, cantidad) VALUES(?,?,?,?)");
+
+            }
+            catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+            }
             System.out.println("a - Ingresar otro producto\n" +
                     "b - Volver al menu principal");
         } while (sc.next().equals("a"));
