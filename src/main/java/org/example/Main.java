@@ -134,14 +134,15 @@ public class Main {
     }
 }
 
-    public void agregarCliente(){
+    public void menuCliente(){
 
         ArrayList<Clientes> clientes = new ArrayList<>();
         ClientesHabituales clientesHabituales = new ClientesHabituales(clientes);
 
-        System.out.println("¿Desea ingresar un nuevo cliente?");
-        System.out.println("1. Sí");
-        System.out.println("2. No");
+        System.out.println("¿Que desea hacer?");
+        System.out.println("1. Agregar un nuevo cliente.");
+        System.out.println("2. Mostrar la lista de clientes.");
+        System.out.println("3. Volver");
         int opcion = sc.nextInt();
         sc.nextLine(); //Para limpiar el buffer
 
@@ -156,8 +157,10 @@ public class Main {
 
             System.out.println("Cliente agregado: " + cliente);
 
-        }else {
-            return;
-        }
+        }else if (opcion == 2){
+            
+            System.out.println("Listado de clientes: " + clientesHabituales.getClientes());
+
+        } else {return;}
 
     }
