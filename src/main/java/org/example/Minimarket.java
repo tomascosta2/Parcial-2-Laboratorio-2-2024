@@ -19,7 +19,6 @@ public class Minimarket {
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -27,7 +26,6 @@ public class Minimarket {
     public ArrayList<Venta> getVentas() {
         return ventas;
     }
-
     public void setVentas(ArrayList<Venta> ventas) {
         this.ventas = ventas;
     }
@@ -35,13 +33,14 @@ public class Minimarket {
     public ArrayList<Producto> getMercaderia() {
         return mercaderia;
     }
-
     public void setMercaderia(ArrayList<Producto> mercaderia) {
         this.mercaderia = mercaderia;
     }
 
     public void addMercaderia(ArrayList<Producto> productos) {
+        System.out.println(productos.size());
         for (Producto producto : productos) {
+            System.out.println("Producto agregado: " + producto.getNombre());
             this.mercaderia.add(producto);
         }
     }
