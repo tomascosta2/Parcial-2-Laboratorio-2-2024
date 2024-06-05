@@ -3,11 +3,46 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 public class Main {
 
     public static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+
+        try {
+            // Cargar el controlador H2
+            Class.forName("org.h2.Driver");
+
+            // Establecer la conexión
+            Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+
+            // Crear una tabla
+            Statement statement = connection.createStatement();
+            statement.execute("CREATE TABLE example(id INT PRIMARY KEY, name VARCHAR(255))");
+
+            // Insertar datos
+            statement.execute("INSERT INTO example(id, name) VALUES(1, 'CocaCola')");
+            statement.execute("INSERT INTO example(id, name) VALUES(2, 'Pepsi')");
+
+            // Consultar datos
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM example");
+            while (resultSet.next()) {
+                System.out.println("ID: " + resultSet.getInt("id") + ", Name: " + resultSet.getString("name"));
+            }
+
+            // Cerrar conexiones
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         // Creamos el primer minimarket del sistema
         Minimarket mauros = crearMinimarket("Mauros");
