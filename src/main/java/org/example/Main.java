@@ -133,3 +133,31 @@ public class Main {
         minimarket.addMercaderia(mercaderiaAAgregar);
     }
 }
+
+    public void agregarCliente(){
+
+        ArrayList<Clientes> clientes = new ArrayList<>();
+        ClientesHabituales clientesHabituales = new ClientesHabituales(clientes);
+
+        System.out.println("¿Desea ingresar un nuevo cliente?");
+        System.out.println("1. Sí");
+        System.out.println("2. No");
+        int opcion = sc.nextInt();
+        sc.nextLine(); //Para limpiar el buffer
+
+        if (opcion == 1) {
+
+            System.out.println("Ingrese el nombre completo del cliente: ");
+            String nombreCli = sc.nextLine();
+            int idCli = clientesHabituales.obtenerIdUltimoCliente() + 1;
+
+            Clientes cliente = new Clientes(nombreCli, idCli);
+            clientesHabituales.agregarCliente(cliente);
+
+            System.out.println("Cliente agregado: " + cliente);
+
+        }else {
+            return;
+        }
+
+    }
