@@ -143,7 +143,6 @@ public class Main {
         // Enviamos el array con la mercaderia nueva
         minimarket.addMercaderia(mercaderiaAAgregar);
     }
-}
 
     public void menuCliente(){
 
@@ -168,10 +167,12 @@ public class Main {
 
             System.out.println("Cliente agregado: " + cliente);
 
-        }else if (opcion == 2){
-            
+        } else if (opcion == 2){
+
             System.out.println("Listado de clientes: " + clientesHabituales.getClientes());
 
         } else {return;}
 
     }
+
+}
