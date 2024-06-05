@@ -11,6 +11,8 @@ public class Main {
 
         // Creamos el primer minimarket del sistema
         Minimarket mauros = crearMinimarket("Mauros");
+        ArrayList<Producto> mercaderiaBase = new ArrayList<>();
+        mauros.setMercaderia(mercaderiaBase);
 
         do {
 
@@ -54,8 +56,12 @@ public class Main {
         Venta venta = new Venta();
 
         System.out.println("Que producto va a vender:");
-        for (Producto producto : minimarket.getMercaderia()) {
-            System.out.println("producto" + producto.getNombre() + " cantidad: " + producto.getCantidad());
+        if (minimarket.getMercaderia().size() > 0) {
+            for (Producto producto : minimarket.getMercaderia()) {
+                System.out.println("producto" + producto.getNombre() + " cantidad: " + producto.getCantidad());
+            }
+        } else {
+            System.out.println("No hay productos para vender");
         }
 
         minimarket.addVenta(venta);
@@ -65,7 +71,9 @@ public class Main {
 
         // Creamos una lista de productos a enviar a la mercaderia del minimarket
         ArrayList<Producto> mercaderiaAAgregar = new ArrayList<>();
+        //if (minimarket.getMercaderia().size() > 0) {
 
+        //}
         do {
             // Pedimos los datos sobre el producto
             System.out.println("ID del producto");
