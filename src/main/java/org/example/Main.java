@@ -144,3 +144,34 @@ public class Main {
         minimarket.addMercaderia(mercaderiaAAgregar);
     }
 }
+
+    public void menuCliente(){
+
+        ArrayList<Clientes> clientes = new ArrayList<>();
+        ClientesHabituales clientesHabituales = new ClientesHabituales(clientes);
+
+        System.out.println("¿Que desea hacer?");
+        System.out.println("1. Agregar un nuevo cliente.");
+        System.out.println("2. Mostrar la lista de clientes.");
+        System.out.println("3. Volver");
+        int opcion = sc.nextInt();
+        sc.nextLine(); //Para limpiar el buffer
+
+        if (opcion == 1) {
+
+            System.out.println("Ingrese el nombre completo del cliente: ");
+            String nombreCli = sc.nextLine();
+            int idCli = clientesHabituales.obtenerIdUltimoCliente() + 1;
+
+            Clientes cliente = new Clientes(nombreCli, idCli);
+            clientesHabituales.agregarCliente(cliente);
+
+            System.out.println("Cliente agregado: " + cliente);
+
+        }else if (opcion == 2){
+            
+            System.out.println("Listado de clientes: " + clientesHabituales.getClientes());
+
+        } else {return;}
+
+    }
