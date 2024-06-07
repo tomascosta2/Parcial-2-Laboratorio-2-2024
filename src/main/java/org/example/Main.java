@@ -23,20 +23,20 @@ public class Main {
 
             // Crear una tabla
             Statement statement = connection.createStatement();
-            //statement.execute("CREATE TABLE producto (id INT PRIMARY KEY, name VARCHAR(255))");
+            statement.execute("CREATE TABLE IF NOT EXISTS producto (id INT PRIMARY KEY, nombre VARCHAR(255), precio INT, cantidad INT)");
 
             // Insertar datos
             //statement.execute("INSERT INTO producto(id, name) VALUES(1, 'CocaCola')");
             //statement.execute("INSERT INTO producto(id, name) VALUES(2, 'Pepsi')");
 
             // Consultar datos
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM producto");
-            while (resultSet.next()) {
-                System.out.println("ID: " + resultSet.getInt("id") + ", Name: " + resultSet.getString("name"));
-            }
+//            ResultSet resultSet = statement.executeQuery("SELECT * FROM producto");
+//            while (resultSet.next()) {
+//                System.out.println("ID: " + resultSet.getInt("id") + ", Name: " + resultSet.getString("name"));
+//            }
 
             // Cerrar conexiones
-            resultSet.close();
+            //resultSet.close();
             statement.close();
             connection.close();
         } catch (Exception e) {
@@ -49,6 +49,7 @@ public class Main {
         ArrayList<Producto> mercaderiaBase = new ArrayList<>();
         mauros.setMercaderia(mercaderiaBase);
 
+        int accion;
         do {
 
             System.out.println("Ingrese la accion a realizar: \n" +
@@ -66,7 +67,7 @@ public class Main {
             );
 
             //  Leemos la accion que el usuario quiere realizar
-            int accion = Integer.parseInt(sc.next());
+            accion = Integer.parseInt(sc.next());
 
             switch (accion) {
                 case 1:
@@ -76,9 +77,12 @@ public class Main {
                 case 2:
                     cargarMercaderia(mauros);
                     break;
+                case 9:
+                    System.out.println("Saliendo...");
+                    break;
             }
 
-        } while (!sc.next().equals("9"));
+        } while (accion != 9);
 
     }
 
@@ -129,8 +133,7 @@ public class Main {
                 Statement statement = connection.createStatement();
 
                 statement.execute("INSERT INTO producto(id, nombre, precio, cantidad) VALUES('" + id + "','" + nombre + "','" + precio + "','" + cantidad + "')");
-                //statement.execute("INSERT INTO producto(id, nombre, precio, cantidad) VALUES(?,?,?,?)");
-
+                
             }
             catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
