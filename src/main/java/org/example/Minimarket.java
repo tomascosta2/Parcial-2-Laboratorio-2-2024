@@ -44,4 +44,21 @@ public class Minimarket {
             this.mercaderia.add(producto);
         }
     }
+
+    public Producto getProducto(int idAVender) {
+        for (Producto producto : this.mercaderia) {
+            if (producto.getId() == idAVender) {
+                return producto;
+            }
+        }
+        return null;
+    }
+
+    public void venderMercaderia(Producto productoAVender) {
+        for (Producto producto : this.mercaderia) {
+            if (producto.getId() == productoAVender.getId()) {
+                productoAVender.setCantidad(productoAVender.getCantidad() - 1);
+            }
+        }
+    }
 }

@@ -14,6 +14,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Minimarket mauros = crearMinimarket("Mauros");
+
         try {
             // Cargar el controlador H2
             Class.forName("org.h2.Driver");
@@ -24,19 +26,25 @@ public class Main {
             // Crear una tabla
             Statement statement = connection.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS producto (id INT PRIMARY KEY, nombre VARCHAR(255), precio INT, cantidad INT)");
+            ResultSet resultSet = null;
 
-            // Insertar datos
-            //statement.execute("INSERT INTO producto(id, name) VALUES(1, 'CocaCola')");
-            //statement.execute("INSERT INTO producto(id, name) VALUES(2, 'Pepsi')");
+            // Cargamos los datos de la tabla en el minimarket
+            resultSet = statement.executeQuery("SELECT * FROM producto");
+            ArrayList<Producto> mercaderiaBase = new ArrayList<>();
 
-            // Consultar datos
-            // ResultSet resultSet = statement.executeQuery("SELECT * FROM producto");
-            // while (resultSet.next()) {
-            // System.out.println("ID: " + resultSet.getInt("id") + ", Name: " + resultSet.getString("name"));
-            // }
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nombre = resultSet.getString("nombre");
+                int precio = resultSet.getInt("precio");
+                int cantidad = resultSet.getInt("precio");
 
-            // Cerrar conexiones
-            //resultSet.close();
+                // Crear un objeto Producto y añadirlo a la lista
+                Producto product = new Producto(id, nombre, precio, cantidad);
+                mercaderiaBase.add(product);
+            }
+
+            mauros.setMercaderia(mercaderiaBase);
+
             statement.close();
             connection.close();
         } catch (Exception e) {
@@ -44,25 +52,20 @@ public class Main {
             e.printStackTrace();
         }
 
-        // Creamos el primer minimarket del sistema
-        Minimarket mauros = crearMinimarket("Mauros");
-        ArrayList<Producto> mercaderiaBase = new ArrayList<>();
-        mauros.setMercaderia(mercaderiaBase);
-
         int accion;
         do {
 
             System.out.println("Ingrese la accion a realizar: \n" +
                     "1-Vender/Cobrar un producto\n" + // 2da (tomi - proceso)
                     "2-Ingreso de mercadería\n" + // 1ra (tomi - lista)
-                    "3-Pago a proveedor\n" + // 5ta
+                    "3-Pago a proveedor\n" + // 5ta (faus)
                     "4-Consulta de ventas\n" + // 4ta (tomi - pendiente)
                     "      a- Diaria\n" +
                     "      b- Mensual\n" +
-                    "5-Balance (mostrar ganancias y pérdidas)\n" + // 6ta
-                    "6-Solicitar una comanda a la cocina.\n" + // 7ma
+                    "5-Balance (mostrar ganancias y pérdidas)\n" + // 6ta (faus)
+                    "6-Solicitar una comanda a la cocina.\n" + // 7ma (faus)
                     "7-Pagar cuenta\n" + // 3ra (tomi - pendiente)
-                    "8-Informacion estadística de platos más pedidos.\n" + // 8va
+                    "8-Informacion estadística de platos más pedidos.\n" + // 8va (faus)
                     "9-Salir"
             );
 
@@ -92,27 +95,45 @@ public class Main {
     }
 
     public static void vender(Minimarket minimarket) {
-        Venta venta = new Venta();
 
         System.out.println("Que producto va a vender:");
         if (minimarket.getMercaderia().size() > 0) {
-            for (Producto producto : minimarket.getMercaderia()) {
-                System.out.println("producto" + producto.getNombre() + " cantidad: " + producto.getCantidad());
-            }
-        } else {
-            System.out.println("No hay productos para vender");
-        }
+            Venta venta = new Venta();
 
-        minimarket.addVenta(venta);
+            for (Producto producto : minimarket.getMercaderia()) {
+                System.out.println("id: " + producto.getId() + " | producto: " + producto.getNombre() + " | cantidad: " + producto.getCantidad());
+            }
+
+            ArrayList<Producto> productosAVender = new ArrayList<>();
+
+            String salir = "";
+
+            do {
+
+                System.out.println("Ingrese el id del producto a vender:");
+                int idAVender = sc.nextInt();
+
+                // TODO: Quitar tambien de la DB
+                Producto prodAVender = minimarket.getProducto(idAVender);
+                minimarket.venderMercaderia(prodAVender);
+
+                System.out.println("Desea cargar otro producto a la venta? y/n");
+                salir = sc.next();
+
+            } while (salir.equals("y"));
+
+
+            // minimarket.addVenta(venta);
+        } else {
+            System.out.println("!!! No hay productos para vender");
+        }
     }
 
     public static void cargarMercaderia(Minimarket minimarket) {
 
         // Creamos una lista de productos a enviar a la mercaderia del minimarket
         ArrayList<Producto> mercaderiaAAgregar = new ArrayList<>();
-        //if (minimarket.getMercaderia().size() > 0) {
 
-        //}
         do {
             // Pedimos los datos sobre el producto
             System.out.println("ID del producto");
