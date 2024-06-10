@@ -61,4 +61,7 @@ public class Minimarket {
             }
         }
     }
+    public void venderMercaderia(Producto producto, int cantidadAVender) {
+        producto.setCantidad(producto.getCantidad() - cantidadAVender);
+    }
 }

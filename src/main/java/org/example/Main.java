@@ -1,12 +1,8 @@
 package org.example;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class Main {
 
@@ -115,7 +111,21 @@ public class Main {
 
                 // TODO: Quitar tambien de la DB
                 Producto prodAVender = minimarket.getProducto(idAVender);
-                minimarket.venderMercaderia(prodAVender);
+                if (prodAVender != null) {
+                    System.out.println("Ingrese la cantidad a vender:");
+                    int cantidadAVender = sc.nextInt();
+
+                    if (cantidadAVender > 0 && cantidadAVender <= prodAVender.getCantidad()) {
+                        minimarket.venderMercaderia(prodAVender, cantidadAVender);
+                        actualizarCantidadEnDB(prodAVender.getId(), prodAVender.getCantidad() - cantidadAVender);
+                    } else {
+                        System.out.println("Cantidad inválida.");
+                    }
+                } else {
+                    System.out.println("Producto no encontrado.");
+                }
+
+                //minimarket.venderMercaderia(prodAVender);
 
                 System.out.println("Desea cargar otro producto a la venta? y/n");
                 salir = sc.next();
@@ -129,6 +139,32 @@ public class Main {
         }
     }
 
+    public static void actualizarCantidadEnDB(int idProducto, int nuevaCantidad) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            String sql = "UPDATE productos SET cantidad = ? WHERE id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, nuevaCantidad);
+            pstmt.setInt(2, idProducto);
+            pstmt.executeUpdate();
+
+            System.out.println("Cantidad actualizada en la base de datos.");
+
+        } catch (SQLException | ClassNotFoundException se) {
+            se.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
     public static void cargarMercaderia(Minimarket minimarket) {
 
         // Creamos una lista de productos a enviar a la mercaderia del minimarket
@@ -200,3 +236,4 @@ public class Main {
     }
 
 }
+
