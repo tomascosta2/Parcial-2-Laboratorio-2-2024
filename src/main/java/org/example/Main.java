@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    private static final String JDBC_DRIVER = "org.h2.Driver";
+    private static final String DB_URL = "jdbc:h2:tcp://localhost/~/test";
+    private static final String USER = "sa";
+    private static final String PASS = "";
 
     public static Scanner sc = new Scanner(System.in);
 
@@ -146,7 +150,7 @@ public class Main {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            String sql = "UPDATE productos SET cantidad = ? WHERE id = ?";
+            String sql = "UPDATE productos SET stock = ? WHERE id = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, nuevaCantidad);
             pstmt.setInt(2, idProducto);
