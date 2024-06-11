@@ -121,7 +121,7 @@ public class Main {
 
                     if (cantidadAVender > 0 && cantidadAVender <= prodAVender.getCantidad()) {
                         minimarket.venderMercaderia(prodAVender, cantidadAVender);
-                        actualizarCantidadEnDB(prodAVender.getId(), prodAVender.getCantidad() - cantidadAVender);
+                        actualizarCantidadEnDB(prodAVender.getId(), (prodAVender.getCantidad() - cantidadAVender));
                     } else {
                         System.out.println("Cantidad inválida.");
                     }
@@ -150,13 +150,14 @@ public class Main {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            String sql = "UPDATE productos SET stock = ? WHERE id = ?";
+            String sql = "UPDATE producto SET cantidad = ? WHERE id = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, nuevaCantidad);
             pstmt.setInt(2, idProducto);
             pstmt.executeUpdate();
 
             System.out.println("Cantidad actualizada en la base de datos.");
+
 
         } catch (SQLException | ClassNotFoundException se) {
             se.printStackTrace();
