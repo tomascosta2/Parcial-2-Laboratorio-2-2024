@@ -14,4 +14,20 @@ public class Venta {
         this.productos = productos;
         this.total = total;
     }
+
+    public ArrayList<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 }

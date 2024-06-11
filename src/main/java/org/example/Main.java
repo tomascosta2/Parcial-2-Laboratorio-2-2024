@@ -56,7 +56,7 @@ public class Main {
         do {
 
             System.out.println("Ingrese la accion a realizar: \n" +
-                    "1-Vender/Cobrar un producto\n" + // 2da (tomi - proceso)
+                    "1-Vender/Cobrar un producto\n" + // 2da (tomi - lista)
                     "2-Ingreso de mercadería\n" + // 1ra (tomi - lista)
                     "3-Pago a proveedor\n" + // 5ta (faus)
                     "4-Consulta de ventas\n" + // 4ta (tomi - pendiente)
@@ -80,6 +80,12 @@ public class Main {
                 case 2:
                     cargarMercaderia(mauros);
                     break;
+                case 4:
+                    verVentas(mauros);
+                    break;
+                case 7:
+                    pagarCuenta(mauros);
+                    break;
                 case 9:
                     System.out.println("Saliendo...");
                     break;
@@ -90,7 +96,13 @@ public class Main {
     }
 
     public static Minimarket crearMinimarket(String nombre) {
+        // Instanciamos minimarket
         Minimarket minimarket = new Minimarket(nombre);
+
+        // Cargamos lista de ventas vacia
+        ArrayList<Venta> ventasVacio = new ArrayList<>();
+        minimarket.setVentas(ventasVacio);
+
         return minimarket;
     }
 
@@ -104,7 +116,10 @@ public class Main {
                 System.out.println("id: " + producto.getId() + " | producto: " + producto.getNombre() + " | cantidad: " + producto.getCantidad());
             }
 
+            // Lista de productos a vender
             ArrayList<Producto> productosAVender = new ArrayList<>();
+            // Iterador para sumar total de la venta
+            int total = 0;
 
             String salir = "";
 
@@ -113,31 +128,41 @@ public class Main {
                 System.out.println("Ingrese el id del producto a vender:");
                 int idAVender = sc.nextInt();
 
-                // TODO: Quitar tambien de la DB
+                // Instanciamos el producto a vender
                 Producto prodAVender = minimarket.getProducto(idAVender);
                 if (prodAVender != null) {
                     System.out.println("Ingrese la cantidad a vender:");
                     int cantidadAVender = sc.nextInt();
 
                     if (cantidadAVender > 0 && cantidadAVender <= prodAVender.getCantidad()) {
+                        // actualizamos en el objeto
                         minimarket.venderMercaderia(prodAVender, cantidadAVender);
+                        // actualizamos cantidad en la db
                         actualizarCantidadEnDB(prodAVender.getId(), prodAVender.getCantidad());
+                        // agregamos a la lista de productos a vender para cargar en la venta
+                        productosAVender.add(prodAVender);
+                        // sumamos al total el precio del producto multiplicado por la cantidad de este
+                        System.out.println("precio del producto: " + prodAVender.getPrecio());
+                        System.out.println("cantidad del producto: " + cantidadAVender);
+                        total += prodAVender.getPrecio() * cantidadAVender;
                     } else {
                         System.out.println("Cantidad inválida.");
                     }
+
                 } else {
                     System.out.println("Producto no encontrado.");
                 }
-
-                //minimarket.venderMercaderia(prodAVender);
 
                 System.out.println("Desea cargar otro producto a la venta? y/n");
                 salir = sc.next();
 
             } while (salir.equals("y"));
 
+            venta.setProductos(productosAVender);
+            venta.setTotal(total);
 
-            // minimarket.addVenta(venta);
+            minimarket.addVenta(venta);
+
         } else {
             System.out.println("!!! No hay productos para vender");
         }
@@ -170,6 +195,7 @@ public class Main {
             }
         }
     }
+
     public static void cargarMercaderia(Minimarket minimarket) {
 
         // Creamos una lista de productos a enviar a la mercaderia del minimarket
@@ -238,6 +264,26 @@ public class Main {
 
         } else {return;}
 
+    }
+
+    // 3:
+    public static void pagarCuenta(Minimarket minimarket) {
+        Venta venta = new Venta();
+    }
+    // 4:
+    public static void verVentas(Minimarket minimarket) {
+        if (minimarket.getVentas().isEmpty()) {
+            System.out.println("No hay ventas");
+        } else {
+            for (Venta venta : minimarket.getVentas()) {
+                System.out.println("<Fecha y hora>");
+                for (Producto producto : venta.getProductos()) {
+                    System.out.println(producto.getNombre() + " " + producto.getPrecio() + " <cantidad>");
+                }
+                System.out.println("TOTAL: " + venta.getTotal());
+                System.out.println("---");
+            }
+        }
     }
 
 }
