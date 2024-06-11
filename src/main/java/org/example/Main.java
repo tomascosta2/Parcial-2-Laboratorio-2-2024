@@ -36,7 +36,7 @@ public class Main {
                 int id = resultSet.getInt("id");
                 String nombre = resultSet.getString("nombre");
                 int precio = resultSet.getInt("precio");
-                int cantidad = resultSet.getInt("precio");
+                int cantidad = resultSet.getInt("cantidad");
 
                 // Crear un objeto Producto y añadirlo a la lista
                 Producto product = new Producto(id, nombre, precio, cantidad);
@@ -121,7 +121,7 @@ public class Main {
 
                     if (cantidadAVender > 0 && cantidadAVender <= prodAVender.getCantidad()) {
                         minimarket.venderMercaderia(prodAVender, cantidadAVender);
-                        actualizarCantidadEnDB(prodAVender.getId(), (prodAVender.getCantidad() - cantidadAVender));
+                        actualizarCantidadEnDB(prodAVender.getId(), prodAVender.getCantidad());
                     } else {
                         System.out.println("Cantidad inválida.");
                     }
