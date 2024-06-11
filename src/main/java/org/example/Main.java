@@ -58,14 +58,14 @@ public class Main {
             System.out.println("Ingrese la accion a realizar: \n" +
                     "1-Vender/Cobrar un producto\n" + // 2da (tomi - lista)
                     "2-Ingreso de mercadería\n" + // 1ra (tomi - lista)
-                    "3-Pago a proveedor\n" + // 5ta (faus)
-                    "4-Consulta de ventas\n" + // 4ta (tomi - pendiente)
+                    "3-Pago a proveedor\n" + // 5ta (faus - pendiente)
+                    "4-Consulta de ventas\n" + // 4ta (tomi - lista)
                     "      a- Diaria\n" +
                     "      b- Mensual\n" +
-                    "5-Balance (mostrar ganancias y pérdidas)\n" + // 6ta (faus)
-                    "6-Solicitar una comanda a la cocina.\n" + // 7ma (faus)
+                    "5-Balance (mostrar ganancias y pérdidas)\n" + // 6ta (lau - pendiente)
+                    "6-Solicitar una comanda a la cocina.\n" + // 7ma (faus - pendiente)
                     "7-Pagar cuenta\n" + // 3ra (tomi - pendiente)
-                    "8-Informacion estadística de platos más pedidos.\n" + // 8va (faus)
+                    "8-Informacion estadística de platos más pedidos.\n" + // 8va (faus - pendiente)
                     "9-Salir"
             );
 
