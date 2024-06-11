@@ -266,11 +266,11 @@ public class Main {
 
     }
 
-    // 3:
+    // 3ra:
     public static void pagarCuenta(Minimarket minimarket) {
         Venta venta = new Venta();
     }
-    // 4:
+    // 4ta:
     public static void verVentas(Minimarket minimarket) {
         if (minimarket.getVentas().isEmpty()) {
             System.out.println("No hay ventas");
