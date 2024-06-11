@@ -11,6 +11,8 @@ public class Main {
     private static final String PASS = "";
 
     public static Scanner sc = new Scanner(System.in);
+    private static Balance balance = new Balance();
+
 
     public static void main(String[] args) {
 
@@ -80,8 +82,14 @@ public class Main {
                 case 2:
                     cargarMercaderia(mauros);
                     break;
+                case 3:
+                    pagarProveedor();
+                    break;
                 case 4:
                     verVentas(mauros);
+                    break;
+                case 5:
+                    mostrarBalance();
                     break;
                 case 7:
                     pagarCuenta(mauros);
@@ -162,6 +170,8 @@ public class Main {
             venta.setTotal(total);
 
             minimarket.addVenta(venta);
+            balance.agregarGanancia(total);
+
 
         } else {
             System.out.println("!!! No hay productos para vender");
@@ -232,8 +242,11 @@ public class Main {
         } while (sc.next().equals("a"));
 
         // Enviamos el array con la mercaderia nueva
+        mercaderiaAAgregar.addAll(minimarket.getMercaderia());
+
         minimarket.addMercaderia(mercaderiaAAgregar);
     }
+
 
     public void menuCliente(){
 
@@ -285,6 +298,32 @@ public class Main {
             }
         }
     }
+
+    public static void pagarProveedor() {
+        System.out.println("Ingrese el id del proveedor:");
+        int idProveedor = sc.nextInt();
+        System.out.println("Ingrese el nombre del proveedor:");
+        String nombreProveedor = sc.next();
+        System.out.println("Ingrese el monto a pagar:");
+        double monto = sc.nextDouble();
+
+        Proveedor proveedor = new Proveedor(idProveedor, nombreProveedor);
+        PagoProveedor pago = new PagoProveedor(proveedor, monto);
+
+        balance.agregarPerdida(monto);
+        System.out.println("Pago realizado a " + nombreProveedor + " por un monto de $" + monto);
+    }
+    public static void mostrarBalance() {
+        System.out.println("Ganancias: $" + balance.getGanancias());
+        System.out.println("Pérdidas: $" + balance.getPerdidas());
+        System.out.println("Balance total: $" + balance.calcularBalance());
+    }
+
+
+
+
+
+
 
 }
 
