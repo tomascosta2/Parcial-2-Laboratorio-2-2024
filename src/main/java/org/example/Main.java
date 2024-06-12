@@ -66,7 +66,7 @@ public class Main {
                     "      b- Mensual\n" +
                     "5-Balance (mostrar ganancias y pérdidas)\n" + // 6ta (lau - pendiente)
                     "6-Solicitar una comanda a la cocina.\n" + // 7ma (faus - pendiente)
-                    "7-Pagar cuenta\n" + // 3ra (tomi - pendiente)
+                    "7-Pagar cuenta\n" + // 3ra (tomi - lista)
                     "8-Informacion estadística de platos más pedidos.\n" + // 8va (faus - pendiente)
                     "9-Salir"
             );
@@ -281,7 +281,67 @@ public class Main {
 
     // 3ra:
     public static void pagarCuenta(Minimarket minimarket) {
-        Venta venta = new Venta();
+
+        System.out.println("Selecciona los productos a cobrar:");
+        if (minimarket.getMercaderia().size() > 0) {
+            Venta venta = new Venta();
+
+            for (Producto producto : minimarket.getMercaderia()) {
+                System.out.println("id: " + producto.getId() + " | producto: " + producto.getNombre() + " | cantidad: " + producto.getCantidad());
+            }
+
+            // Lista de productos a vender
+            ArrayList<Producto> productosAVender = new ArrayList<>();
+            // Iterador para sumar total de la venta
+            int total = 0;
+
+            String salir = "";
+
+            do {
+
+                System.out.println("Ingrese el id del producto a agregar al ticket:");
+                int idAVender = sc.nextInt();
+
+                // Instanciamos el producto a vender
+                Producto prodAVender = minimarket.getProducto(idAVender);
+                if (prodAVender != null) {
+                    System.out.println("Ingrese la cantidad consumida:");
+                    int cantidadAVender = sc.nextInt();
+
+                    if (cantidadAVender > 0 && cantidadAVender <= prodAVender.getCantidad()) {
+                        // actualizamos en el objeto
+                        minimarket.venderMercaderia(prodAVender, cantidadAVender);
+                        // actualizamos cantidad en la db
+                        actualizarCantidadEnDB(prodAVender.getId(), prodAVender.getCantidad());
+                        // agregamos a la lista de productos a vender para cargar en la venta
+                        productosAVender.add(prodAVender);
+                        // sumamos al total el precio del producto multiplicado por la cantidad de este
+                        System.out.println("precio del producto: " + prodAVender.getPrecio());
+                        System.out.println("cantidad del producto: " + cantidadAVender);
+                        total += prodAVender.getPrecio() * cantidadAVender;
+                    } else {
+                        System.out.println("Cantidad inválida.");
+                    }
+
+                } else {
+                    System.out.println("Producto no encontrado.");
+                }
+
+                System.out.println("Desea cargar otro producto al ticket? y/n");
+                salir = sc.next();
+
+            } while (salir.equals("y"));
+
+            venta.setProductos(productosAVender);
+            venta.setTotal(total);
+
+            minimarket.addVenta(venta);
+            balance.agregarGanancia(total);
+
+
+        } else {
+            System.out.println("!!! No hay productos para vender");
+        }
     }
     // 4ta:
     public static void verVentas(Minimarket minimarket) {
