@@ -18,7 +18,6 @@ public class Main {
     public static Scanner sc = new Scanner(System.in);
     private static Balance balance = new Balance();
 
-
     public static void main(String[] args) {
 
         Minimarket mauros = crearMinimarket("Mauros");
@@ -70,10 +69,9 @@ public class Main {
                     "      a- Diaria\n" +
                     "      b- Mensual\n" +
                     "5-Balance (mostrar ganancias y pérdidas)\n" + // 6ta (lau - pendiente)
-                    "6-Solicitar una comanda a la cocina.\n" + // 7ma (faus - pendiente)
+                    "6-Menu cocina.\n" + // 7ma (faus - pendiente)
                     "7-Pagar cuenta\n" + // 3ra (tomi - lista)
-                    "8-Informacion estadística de platos más pedidos.\n" + // 8va (faus - pendiente)
-                    "9-Salir"
+                    "8-Salir"
             );
 
             //  Leemos la accion que el usuario quiere realizar
@@ -102,7 +100,7 @@ public class Main {
                 case 7:
                     pagarCuenta(mauros);
                     break;
-                case 9:
+                case 8:
                     System.out.println("Saliendo...");
                     break;
             }
@@ -390,8 +388,8 @@ public class Main {
 
     public static void solicitarComandaCocina(){
 
-        Cocina cocina = new Cocina();
         boolean continuar = true;
+        Cocina cocina = new Cocina();
 
         while (continuar) {
             System.out.println("¿Qué deseas hacer?");
@@ -425,10 +423,6 @@ public class Main {
         }
     }
 
-    }
-
-
-
-
 }
+
 

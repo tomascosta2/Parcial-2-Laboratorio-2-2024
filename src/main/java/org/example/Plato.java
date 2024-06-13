@@ -32,5 +32,12 @@ public class Plato {
         this.costo = costo;
     }
 
+    @Override
+    public String toString() {
+        return "Plato{" +
+                "nombre='" + nombre + '\'' +
+                ", precio=" + costo +
+                '}';
+    }
 
 }

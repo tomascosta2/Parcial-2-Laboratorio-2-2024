@@ -46,7 +46,7 @@ public class Cocina {
     public void mostrarMenu() {
         System.out.println("Menú:");
         for (Plato plato : menu.values()) {
-            System.out.println(plato.getNombre() + " - Precio: $" + plato.getPrecio());
+            System.out.println(plato.getNombre() + " - Precio: $" + plato.getCosto());
         }
     }
 }
