@@ -1,16 +1,18 @@
 package org.example;
 
-public class Platos {
+public class Plato {
     
     private String nombre;
     private int costo;
 
-    public Platos(int costo, String nombre) {
-        this.costo = costo;
+    public Plato(String nombre, int costo) {
+       
         this.nombre = nombre;
+        this.costo = costo;
+        
     }
 
-    public Platos(){
+    public Plato(){
 
     }
 
@@ -22,14 +24,13 @@ public class Platos {
         this.nombre = nombre;
     }
 
-    public String getCosto() {
+    public int getCosto() {
         return costo;
     }
 
-    public void setCosto(String costo) {
+    public void setCosto(int costo) {
         this.costo = costo;
     }
-
 
 
 }

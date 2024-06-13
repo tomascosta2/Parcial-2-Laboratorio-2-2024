@@ -1,6 +1,11 @@
 package org.example;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -90,6 +95,9 @@ public class Main {
                     break;
                 case 5:
                     mostrarBalance();
+                    break;
+                case 6:
+                    solicitarComandaCocina();
                     break;
                 case 7:
                     pagarCuenta(mauros);
@@ -380,7 +388,44 @@ public class Main {
     }
 
 
+    public static void solicitarComandaCocina(){
 
+        Cocina cocina = new Cocina();
+        boolean continuar = true;
+
+        while (continuar) {
+            System.out.println("¿Qué deseas hacer?");
+            System.out.println("1. Mostrar menú");
+            System.out.println("2. Pedir plato");
+            System.out.println("3. Mostrar pedidos");
+            System.out.println("4. Salir");
+            int opcion = sc.nextInt();
+            sc.nextLine();  // Limpiar el buffer
+
+            switch (opcion) {
+                case 1:
+                    cocina.mostrarMenu();
+                    break;
+                case 2:
+                    System.out.print("Ingrese el nombre del plato: ");
+                    String nombrePlato = sc.nextLine();
+                    System.out.print("Ingrese la cantidad: ");
+                    int cantidad = sc.nextInt();
+                    cocina.pedirPlato(nombrePlato, cantidad);
+                    break;
+                case 3:
+                    cocina.mostrarPedidos();
+                    break;
+                case 4:
+                    continuar = false;
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+            }
+        }
+    }
+
+    }
 
 
 
