@@ -38,9 +38,9 @@ public class Minimarket {
     }
 
     public void addMercaderia(ArrayList<Producto> productos) {
-        System.out.println(productos.size());
+        System.out.println("Total de productos:" + productos.size());
         for (Producto producto : productos) {
-            System.out.println("Producto agregado: " + producto.getNombre());
+            System.out.println("Producto: " + producto.getNombre());
             this.mercaderia.add(producto);
         }
     }
