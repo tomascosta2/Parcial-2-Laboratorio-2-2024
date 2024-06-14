@@ -401,24 +401,17 @@ public class Main {
             sc.nextLine();  // Limpiar el buffer
 
             switch (opcion) {
-                case 1:
-                    cocina.mostrarMenu();
-                    break;
-                case 2:
+                case 1 -> cocina.mostrarMenu();
+                case 2 -> {
                     System.out.print("Ingrese el nombre del plato: ");
                     String nombrePlato = sc.nextLine();
                     System.out.print("Ingrese la cantidad: ");
                     int cantidad = sc.nextInt();
                     cocina.pedirPlato(nombrePlato, cantidad);
-                    break;
-                case 3:
-                    cocina.mostrarPedidos();
-                    break;
-                case 4:
-                    continuar = false;
-                    break;
-                default:
-                    System.out.println("Opción no válida.");
+                }
+                case 3 -> cocina.mostrarPedidos();
+                case 4 -> continuar = false;
+                default -> System.out.println("Opción no válida.");
             }
         }
     }

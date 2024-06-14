@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cocina {
-    private Map<Plato, Integer> pedidos;
-    private Map<String, Plato> menu;
+    private final Map<Plato, Integer> pedidos;
+    private final Map<String, Plato> menu;
 
     public Cocina() {
         pedidos = new HashMap<>();
