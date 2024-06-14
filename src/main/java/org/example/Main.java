@@ -105,7 +105,7 @@ public class Main {
                     break;
             }
 
-        } while (accion != 9);
+        } while (accion != 8);
 
     }
 
