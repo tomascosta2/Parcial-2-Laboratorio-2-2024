@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -218,30 +219,36 @@ public class Main {
         ArrayList<Producto> mercaderiaAAgregar = new ArrayList<>();
 
         do {
-            // Pedimos los datos sobre el producto
-            System.out.println("ID del producto");
-            int id = sc.nextInt();
-            System.out.println("Nombre del producto: ");
-            String nombre = sc.next();
-            System.out.println("Precio del producto: ");
-            int precio = sc.nextInt();
-            System.out.println("Cantidad del producto: ");
-            int cantidad = sc.nextInt();
+            try{
+                // Pedimos los datos sobre el producto
+                System.out.println("ID del producto");
+                int id = sc.nextInt();
+                sc.nextLine();
+                System.out.println("Nombre del producto: ");
+                String nombre = sc.next();
+                System.out.println("Precio del producto: ");
+                int precio = sc.nextInt();
+                System.out.println("Cantidad del producto: ");
+                int cantidad = sc.nextInt();
 
-            /* Creamos el producto y lo agregamos al array de productos que posteriormente vamos
-            a enviar a la mercaderia del minimarket */
-            Producto producto = new Producto(id, nombre, precio, cantidad);
-            mercaderiaAAgregar.add(producto);
-            try {
-                Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
-                Statement statement = connection.createStatement();
+                /* Creamos el producto y lo agregamos al array de productos que posteriormente vamos
+                a enviar a la mercaderia del minimarket */
+                Producto producto = new Producto(id, nombre, precio, cantidad);
+                mercaderiaAAgregar.add(producto);
+                try {
+                    Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+                    Statement statement = connection.createStatement();
 
-                statement.execute("INSERT INTO producto(id, nombre, precio, cantidad) VALUES('" + id + "','" + nombre + "','" + precio + "','" + cantidad + "')");
-                
-            }
-            catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            e.printStackTrace();
+                    statement.execute("INSERT INTO producto(id, nombre, precio, cantidad) VALUES('" + id + "','" + nombre + "','" + precio + "','" + cantidad + "')");
+
+                }
+                catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+                e.printStackTrace();
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Entrada inválida. Por favor, ingrese los datos correctamente.");
+                sc.nextLine();
             }
             System.out.println("a - Ingresar otro producto\n" +
                     "b - Volver al menu principal");
