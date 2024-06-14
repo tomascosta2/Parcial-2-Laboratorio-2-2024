@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+
+        <File name="file" fileName="logs/app2.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </File>
+
+        <RollingFile name="rolling" fileName="logs/app.log"
+                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="1 MB" />
+            </Policies>
+        </RollingFile>
+
+        <SMTP>
+            <name>Mail1</name>
+            <subject>SUBJECT</subject>
+            <to>maria.pelayes@alumnos.frm.utn.edu.ar</to>
+            <from>maria.pelayes@alumnos.frm.utn.edu.ar</from>
+            <smtpHost>smtp.alumnos.frm.utn.edu.ar</smtpHost>
+            <smtpPort>25</smtpPort>
+            <ignoreExceptions>false</ignoreExceptions>
+            <smtpUsername>maria.pelayes@alumnos.frm.utn.edu.ar</smtpUsername>
+            <smtpPassword>nmadtalk0</smtpPassword>
+            <smtpProtocol>smtp</smtpProtocol>
+            <HtmlLayout charset="UTF-8" locationInfo="true" />
+            <ThresholdFilter level="INFO"/>
+        </SMTP>
+
+        <Http name="http" url="http://192.168.56.1:8000/test/log4j" method="GET">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Http>
+    </Appenders>
+
+    <Loggers>
+        <logger name="JobStatus2" additivity="false" level="debug" >
+            <appender-ref ref="Mail1"/>
+        </logger>
+        <logger name="JobStatus" additivity="false" level="debug" >
+            <appender-ref ref="file"/>
+        </logger>
+        <Root level="debug">
+            <AppenderRef ref="http" />
+            <AppenderRef ref="Mail1" />
+        </Root>
+    </Loggers>
+</Configuration>

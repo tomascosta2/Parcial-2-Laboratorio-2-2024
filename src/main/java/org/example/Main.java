@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 public class Main {
     private static final String JDBC_DRIVER = "org.h2.Driver";
     private static final String DB_URL = "jdbc:h2:tcp://localhost/~/test";
@@ -18,6 +22,11 @@ public class Main {
 
     public static Scanner sc = new Scanner(System.in);
     private static Balance balance = new Balance();
+
+    final Level VERBOSE = Level.forName("VERBOSE",150);
+
+    private static final Logger logger = LogManager.getLogger(Main.class);
+    private static final Logger jslogger = LogManager.getLogger("JobStatus2");
 
     public static void main(String[] args) {
 
@@ -182,6 +191,8 @@ public class Main {
 
         } else {
             System.out.println("!!! No hay productos para vender");
+            logger.error("El minimarket se quedo sin productos!!!");
+            jslogger.error("El minimarket se quedo sin productos!!!");
         }
     }
 
