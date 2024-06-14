@@ -39,7 +39,7 @@ public class Cocina {
         Plato plato = obtenerPlatoDelMenu(nombre);
         if (plato != null) {
             pedidos.put(plato, pedidos.getOrDefault(plato, 0) + cantidad);
-            balance.agregarGanancia(plato.getCosto() * cantidad);
+            balance.agregarGanancia(plato.getCosto() * cantidad * 0.2);
         } else {
             System.out.println("El plato " + nombre + " no está en el menú.");
         }
