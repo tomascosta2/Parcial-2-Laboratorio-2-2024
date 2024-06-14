@@ -413,7 +413,7 @@ public class Main {
             System.out.println("¿Qué deseas hacer?");
             System.out.println("1. Mostrar menú");
             System.out.println("2. Pedir plato");
-            System.out.println("3. Mostrar pedidos");
+            System.out.println("3. Mostrar platos mas pedidos");
             System.out.println("4. Agregar plato nuevo");
             System.out.println("5. Salir");
             int opcion = sc.nextInt();
