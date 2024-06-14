@@ -193,6 +193,7 @@ public class Main {
             System.out.println("!!! No hay productos para vender");
             logger.error("El minimarket se quedo sin productos!!!");
             jslogger.error("El minimarket se quedo sin productos!!!");
+            System.out.println("ERROR ACTIVO: " + logger.isErrorEnabled());
         }
     }
 
