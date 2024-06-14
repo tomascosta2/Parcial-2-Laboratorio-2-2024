@@ -6,10 +6,12 @@ import java.util.Map;
 public class Cocina {
     private final Map<Plato, Integer> pedidos;
     private final Map<String, Plato> menu;
+    private final Balance balance;
 
-    public Cocina() {
+    public Cocina(Balance balance) {
         pedidos = new HashMap<>();
         menu = new HashMap<>();
+        this.balance = balance;
         inicializarMenu();
     }
 
@@ -37,6 +39,7 @@ public class Cocina {
         Plato plato = obtenerPlatoDelMenu(nombre);
         if (plato != null) {
             pedidos.put(plato, pedidos.getOrDefault(plato, 0) + cantidad);
+            balance.agregarGanancia(plato.getCosto() * cantidad * 0.2);
         } else {
             System.out.println("El plato " + nombre + " no está en el menú.");
         }

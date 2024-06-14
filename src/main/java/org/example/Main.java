@@ -106,7 +106,7 @@ public class Main {
                     break;
             }
 
-        } while (accion != 9);
+        } while (accion != 8);
 
     }
 
@@ -396,7 +396,7 @@ public class Main {
     public static void solicitarComandaCocina(){
 
         boolean continuar = true;
-        Cocina cocina = new Cocina();
+        Cocina cocina = new Cocina(balance);
 
         while (continuar) {
             System.out.println("¿Qué deseas hacer?");
