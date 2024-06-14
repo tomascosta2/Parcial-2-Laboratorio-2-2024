@@ -362,9 +362,9 @@ public class Main {
             System.out.println("No hay ventas");
         } else {
             for (Venta venta : minimarket.getVentas()) {
-                System.out.println("<Fecha y hora>");
+
                 for (Producto producto : venta.getProductos()) {
-                    System.out.println(producto.getNombre() + " " + producto.getPrecio() + " <cantidad>");
+                    System.out.println(producto.getNombre() + " " + producto.getPrecio() + " cantidad actualizada: "+producto.getCantidad());
                 }
                 System.out.println("TOTAL: " + venta.getTotal());
                 System.out.println("---");
