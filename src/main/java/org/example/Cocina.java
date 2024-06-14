@@ -14,13 +14,19 @@ public class Cocina {
     }
 
     private void inicializarMenu() {
-        agregarPlatoAlMenu(new Plato("Pizza", 8.99));
-        agregarPlatoAlMenu(new Plato("Hamburguesa", 6.99));
-        agregarPlatoAlMenu(new Plato("Ensalada", 5.99));
+        Plato pizza = new Plato("Pizza", 1800);
+        Plato hamburguesa = new Plato("Hamburguesa", 1600);
+        Plato ensalada = new Plato("Ensalada", 1400);
+
+        agregarPlatoAlMenu(pizza);
+        agregarPlatoAlMenu(hamburguesa);
+        agregarPlatoAlMenu(ensalada);
     }
 
     public void agregarPlatoAlMenu(Plato plato) {
-        menu.put(plato.getNombre(), plato);
+        if (plato != null && plato.getNombre() != null) {
+            menu.put(plato.getNombre(), plato);
+        }
     }
 
     public Plato obtenerPlatoDelMenu(String nombre) {
@@ -50,5 +56,3 @@ public class Cocina {
         }
     }
 }
-
-
