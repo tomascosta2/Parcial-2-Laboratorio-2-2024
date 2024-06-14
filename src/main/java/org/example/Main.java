@@ -225,7 +225,7 @@ public class Main {
                 int id = sc.nextInt();
                 sc.nextLine();
                 System.out.println("Nombre del producto: ");
-                String nombre = sc.next();
+                String nombre = sc.nextLine();
                 System.out.println("Precio del producto: ");
                 int precio = sc.nextInt();
                 System.out.println("Cantidad del producto: ");
