@@ -403,7 +403,8 @@ public class Main {
             System.out.println("1. Mostrar menú");
             System.out.println("2. Pedir plato");
             System.out.println("3. Mostrar pedidos");
-            System.out.println("4. Salir");
+            System.out.println("4. Agregar plato nuevo");
+            System.out.println("5. Salir");
             int opcion = sc.nextInt();
             sc.nextLine();  // Limpiar el buffer
 
@@ -417,7 +418,15 @@ public class Main {
                     cocina.pedirPlato(nombrePlato, cantidad);
                 }
                 case 3 -> cocina.mostrarPedidos();
-                case 4 -> continuar = false;
+                case 4 -> {
+                    System.out.println("Ingrese el nombre del plato:");
+                    String nombrePlato = sc.nextLine();
+                    System.out.print("Ingrese el valor: ");
+                    int valorPlato = sc.nextInt();
+                    Plato plato = new Plato(nombrePlato, valorPlato);
+                    cocina.agregarPlatoAlMenu(plato);
+                }
+                case 5 ->{continuar = false;}
                 default -> System.out.println("Opción no válida.");
             }
         }
